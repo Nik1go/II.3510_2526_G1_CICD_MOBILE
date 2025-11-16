@@ -13,7 +13,7 @@ jobs:
       FIREBASE_DISTRIBUTION_ENABLED: "true"
       GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
       FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
-      FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       FIREBASE_TESTERS: ${{ secrets.FIREBASE_TESTERS }}
       FIREBASE_RELEASE_NOTES: "CI build - automated"
 
@@ -50,22 +50,15 @@ jobs:
           name: app-release
           path: app/build/outputs/apk/release/app-release.apk
 
-      - name: Create Firebase service account file
-        if: ${{ env.FIREBASE_DISTRIBUTION_ENABLED == 'true' && env.FIREBASE_SERVICE_ACCOUNT_JSON != '' }}
-        run: |
-          mkdir -p .firebase
-          echo '${{ env.FIREBASE_SERVICE_ACCOUNT_JSON }}' > .firebase/service-account.json
-
       - name: Install Firebase CLI
         if: ${{ env.FIREBASE_DISTRIBUTION_ENABLED == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         run: curl -sL https://firebase.tools | bash
 
       - name: Distribute to Firebase App Distribution
         if: ${{ env.FIREBASE_DISTRIBUTION_ENABLED == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: .firebase/service-account.json
         run: |
           firebase appdistribution:distribute app/build/outputs/apk/release/app-release.apk \
             --app ${{ env.FIREBASE_APP_ID_ANDROID }} \
             --groups "${{ env.FIREBASE_TESTERS }}" \
-            --release-notes "${{ env.FIREBASE_RELEASE_NOTES }}"
+            --release-notes "${{ env.FIREBASE_RELEASE_NOTES }}" \
+            --token "${{ env.FIREBASE_TOKEN }}"
