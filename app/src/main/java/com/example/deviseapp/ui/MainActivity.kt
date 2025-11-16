@@ -29,7 +29,8 @@ class MainActivity : ComponentActivity() {
         "MAD" to CurrencyDisplay("MAD", "Dirham marocain", "🇲🇦"),
         "THB" to CurrencyDisplay("THB", "Baht thaïlandais", "🇹🇭"),
         "JPY" to CurrencyDisplay("JPY", "Yen japonais", "🇯🇵"),
-        "AUD" to CurrencyDisplay("AUD", "Dollar australien", "🇦🇺")
+        "AUD" to CurrencyDisplay("AUD", "Dollar australien", "🇦🇺"),
+        "CNY" to  CurrencyDisplay("CNY", "Yuan chinois", "🇨🇳"),
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
