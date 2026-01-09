@@ -83,7 +83,9 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback {
         "AUD" to CurrencyDisplay("AUD", "Dollar australien", "🇦🇺"),
         "CNY" to CurrencyDisplay("CNY", "Yuan chinois", "🇨🇳"),
         "RUB" to CurrencyDisplay("RUB", "Ruble russe", "🇷🇺"),
-        "BRL" to CurrencyDisplay("BRL", "Real Brésil", "🇧🇷")
+        "BRL" to CurrencyDisplay("BRL", "Real Brésil", "🇧🇷"),
+        "NOK" to CurrencyDisplay("NOK", "Couronne norvégienne", "🇳🇴"),
+        "VND" to CurrencyDisplay("VND", "Dong vietnamien", "🇻🇳")
     )
 
     // Gestion des permissions de localisation
